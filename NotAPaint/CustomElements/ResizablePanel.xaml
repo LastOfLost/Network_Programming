@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="NotAPaint.CustomElements.ResizablePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NotAPaint" 
+             xmlns:sys="http://schemas.microsoft.com/winfx/2009/xaml"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" 
+             MouseMove="OnMouseMove"
+             MouseUp="OnMouseUp">
+    <UserControl.Resources>
+        <Style x:Key="InnerButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="10"></Setter>
+            <Setter Property="Height" Value="10"></Setter>
+            <Setter Property="Visibility" Value="Visible"></Setter>
+            <EventSetter Event="MouseDown" Handler="OnMouseLeftButtonDown"></EventSetter>
+        </Style>
+    </UserControl.Resources>
+
+
+    <Grid Width="Auto" Height="Auto"
+          Background="Transparent">
+        <Grid x:Name="ViewGrid"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              Background="Transparent"
+              Width="{Binding ContainerWidth}"
+              Height="{Binding ContainerHeight}">
+            <ContentPresenter Margin="10" 
+                            Content="{Binding Container}"/>
+
+            <Button
+                Style="{StaticResource InnerButtonStyle}"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"></Button>
+
+            <Button 
+          Style="{StaticResource InnerButtonStyle}"
+          HorizontalAlignment="Left" 
+          VerticalAlignment="Center"></Button>
+
+            <Button
+        Style="{StaticResource InnerButtonStyle}"
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Bottom"></Button>
+
+            <Button 
+        Style="{StaticResource InnerButtonStyle}"
+        HorizontalAlignment="Right" 
+        VerticalAlignment="Top"></Button>
+
+            <Button 
+        Style="{StaticResource InnerButtonStyle}"
+        HorizontalAlignment="Right" 
+        VerticalAlignment="Center"></Button>
+
+            <Button 
+        Style="{StaticResource InnerButtonStyle}"
+        HorizontalAlignment="Right" 
+        VerticalAlignment="Bottom"></Button>
+
+            <Button 
+        Style="{StaticResource InnerButtonStyle}"
+        HorizontalAlignment="Center" 
+        VerticalAlignment="Top"></Button>
+
+            <Button 
+        Style="{StaticResource InnerButtonStyle}"
+        HorizontalAlignment="Center" 
+        VerticalAlignment="Bottom"></Button>
+
+        </Grid>
+        
+        <Border x:Name="ViewBorder"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                BorderThickness="2" 
+                BorderBrush="Black"
+                Margin="{Binding Margin, ElementName=ViewGrid}">
+            
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CanResize, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+    </Grid>
+</UserControl>
